@@ -7,9 +7,9 @@ const employeeRoutes = empRoutes({ makeExpressCallback, router });
 
 const services = Object.freeze({ employeeRoutes });
 
-module.exports = { services };
+module.exports = services;
 
-// module.exports = {
-//   employeeRoutes,
-// };
+module.exports = {
+  employeeRoutes,
+};
 module.exports = router;
