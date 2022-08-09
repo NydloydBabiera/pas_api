@@ -1,5 +1,6 @@
 const Pool = require("pg").Pool;
 const addEmp = require("./employee/add");
+const updateEmployee = require("./employee/update");
 
 const pool = new Pool({
   user: "postgres",
@@ -10,5 +11,8 @@ const pool = new Pool({
 });
 
 const DA_addEmp = addEmp({ pool });
+const DA_updateEmp = updateEmployee({ pool });
 
-module.exports = DA_addEmp;
+const services = Object.freeze(DA_addEmp, DA_updateEmp);
+
+module.exports = services;

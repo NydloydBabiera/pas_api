@@ -1,5 +1,5 @@
-const empEnt = require("./employee/add");
+const employeeEntities = require("./employee/add");
 
-const employeeEntites = empEnt();
+const employeeEnt = employeeEntities();
 
-module.exports = { employeeEntites };
+module.exports = employeeEnt;

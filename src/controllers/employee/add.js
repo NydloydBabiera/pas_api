@@ -1,10 +1,10 @@
-module.exports = function addEmployee({ addNewEmployee }) {
+module.exports = function addEmployee({ addNewEmployee_UC }) {
   return async function post(httpRequest) {
     try {
       const userInfo = httpRequest.body;
 
       // Usecase
-      const result = await userInfo;
+      const result = await addNewEmployee_UC(userInfo);
       if (result) {
         return {
           headers: {

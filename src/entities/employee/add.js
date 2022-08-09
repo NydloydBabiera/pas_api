@@ -1,13 +1,13 @@
 module.exports = function employeeEntities() {
-  return function addNewEmployee(reqEmpInfo) {
+  return function addNewEmployee(employeeInfo) {
     const {
       firstName,
       middleName,
       lastName,
       age,
       gender,
-      address,
-    } = reqEmpInfo;
+      address_emp,
+    } = employeeInfo;
 
     if (!firstName) {
       throw new Error("First name is Required");
@@ -24,8 +24,8 @@ module.exports = function employeeEntities() {
     if (!gender) {
       throw new Error("Gender is required");
     }
-    if (!address) {
-      throw new Error("Addres is required");
+    if (!address_emp) {
+      throw new Error("Address is required");
     }
 
     return Object.freeze({
