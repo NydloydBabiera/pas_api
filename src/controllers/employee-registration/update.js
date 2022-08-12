@@ -1,13 +1,6 @@
 module.exports = function updateEmpInfo({ updateEmployee_UC }) {
   return async function put(httpRequest) {
     try {
-      // console.log(
-      //   "body:",
-      //   httpRequest.body,
-      //   "\n",
-      //   "id:",
-      //   httpRequest.params.id
-      // );
       const employeeInfo = httpRequest.body;
       const employeeId = httpRequest.params.id;
       const result = await updateEmployee_UC(employeeInfo, employeeId);

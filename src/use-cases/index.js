@@ -1,13 +1,14 @@
-const DA_addEmp = require("../data-access");
-const DA_updateEmp = require("../data-access");
+const DA_employee_crud = require("../data-access/employee-registration");
 const employeeEntities = require("../entities");
-const addNewEmp = require("./employee/add");
-const updateEmp = require("./employee/update");
+const addNewEmp = require("./employee-registration/add");
+const updateEmp = require("./employee-registration/update");
+const getAllEmp = require("./employee-registration/get-all-employee");
 
-const addNewEmployee_UC = addNewEmp({ DA_addEmp, employeeEntities });
-const updateEmployee_UC = updateEmp({ DA_updateEmp });
-console.log(DA_updateEmp);
+const addNewEmployee_UC = addNewEmp({ DA_employee_crud, employeeEntities });
+const updateEmployee_UC = updateEmp({ DA_employee_crud });
+const getAllEmployee_UC = getAllEmp({ DA_employee_crud });
 module.exports = {
   addNewEmployee_UC,
   updateEmployee_UC,
+  getAllEmployee_UC,
 };

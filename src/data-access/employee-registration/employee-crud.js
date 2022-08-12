@@ -3,6 +3,8 @@ module.exports = function addEmployee({ pool }) {
     insertEmployee,
     createUserAcct,
     isEmpExist,
+    updateEmployee,
+    getAllEmployee,
   });
 
   async function insertEmployee(reqEmpInfo) {
@@ -15,8 +17,8 @@ module.exports = function addEmployee({ pool }) {
       address_emp,
     } = reqEmpInfo;
 
-    let sql = `INSERT INTO pas_employee(firstname,middlename,lastname,age,gender,address_emp)
-      VALUES($1, $2, $3, $4 , $5, $6) RETURNING *`;
+    let sql = `INSERT INTO pas_employee(firstname,middlename,lastname,age,gender,address_emp,is_active)
+      VALUES($1, $2, $3, $4 , $5, $6,true) RETURNING *`;
     let param = [
       firstName.toLowerCase(),
       middleName.toLowerCase(),
@@ -36,8 +38,6 @@ module.exports = function addEmployee({ pool }) {
         console.log(err.message);
         console.log("=============================");
       });
-
-    
   }
 
   async function createUserAcct(employee_id, firstName, lastName) {
@@ -79,5 +79,55 @@ module.exports = function addEmployee({ pool }) {
         console.log("=============================");
       });
     return isExist;
+  }
+
+  async function updateEmployee(reqEmpInfo, empId) {
+    console.log("reached data access");
+    const {
+      firstName,
+      middleName,
+      lastName,
+      age,
+      gender,
+      address_emp,
+    } = reqEmpInfo;
+
+    let sql = `UPDATE pas_employee SET firstname = $1 , middlename = $2 , lastname = $3 , 
+          age = $4, gender = $5, address_emp = $6 WHERE employee_id = $7 returning *`;
+    let param = [
+      firstName.toLowerCase(),
+      middleName.toLowerCase(),
+      lastName.toLowerCase(),
+      age,
+      gender.toLowerCase(),
+      address_emp.toLowerCase(),
+      empId,
+    ];
+
+    return await pool
+      .query(sql, param)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log("=============================");
+        console.log(err.message);
+        console.log("=============================");
+      });
+  }
+
+  async function getAllEmployee() {
+    let sql = `SELECT * FROM pas_employee`;
+
+    return await pool
+      .query(sql)
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((err) => {
+        console.log("=============================");
+        console.log(err.message);
+        console.log("=============================");
+      });
   }
 };
