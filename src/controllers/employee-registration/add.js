@@ -11,7 +11,7 @@ module.exports = function addEmployee({ addNewEmployee_UC }) {
             "Content-Type": "application/json",
           },
           status: 201,
-          body: "Success!", //result,
+          body: "Success!", //result.json
         };
       } else {
         return {

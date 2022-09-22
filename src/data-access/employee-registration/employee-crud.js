@@ -30,7 +30,7 @@ module.exports = function addEmployee({ pool }) {
     return await pool
       .query(sql, param)
       .then((res) => {
-        createUserAcct(res.rows.employee_id, firstName, lastName);
+        createUserAcct(res.rows[0].employee_id, firstName, lastName);
         return res;
       })
       .catch((err) => {
@@ -43,9 +43,14 @@ module.exports = function addEmployee({ pool }) {
   async function createUserAcct(employee_id, firstName, lastName) {
     let username = firstName.charAt(0).toLowerCase() + lastName.toLowerCase();
     let password = firstName.charAt(0).toLowerCase() + lastName.toLowerCase();
-    let sql = `INSERT INTO pas_userAccounts(username,user_password,employee_id)
-    VALUES($1, $2 ,$3) RETURNING *`;
-    let param = [username.toLowerCase(), password.toLowerCase(), employee_id];
+    let sql = `INSERT INTO pas_userAccounts(username,user_password,user_role                                                                                                                                         e,employee_id)
+    VALUES($1, $2 ,$3 ,$4) RETURNING *`;
+    let param = [
+      username.toLowerCase(),
+      password.toLowerCase(),
+      "",
+      employee_id,
+    ];
     await pool
       .query(sql, param)
       .then((res) => {
